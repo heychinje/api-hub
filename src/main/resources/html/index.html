@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome to the API Server</title>
+    <meta charset="UTF-8">
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+    .language-toggle {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .language-toggle button {
+      display: inline-block;
+      margin: 0 5px;
+      padding: 5px 10px;
+      background-color: #ccc;
+      color: #333;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .language-toggle button.active {
+      background-color: #007bff;
+      color: #fff;
+    }
+  </style>
+    <script>
+    function toggleLanguage(language) {
+      var elements = document.getElementsByClassName("language");
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].style.display = "none";
+      }
+      document.getElementById(language).style.display = "block";
+
+      var buttons = document.getElementsByClassName("toggle-button");
+      for (var j = 0; j < buttons.length; j++) {
+        buttons[j].classList.remove("active");
+      }
+      document.getElementById(language + "-button").classList.add("active");
+    }
+  </script>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to our API Server!</h1>
+
+    <div class="language" id="english">
+        <p>This is our API server, which provides data and services. Please make sure you have valid access credentials and make requests according to the requirements in the API documentation.</p>
+        <p>If you need detailed information about available endpoints and supported features, please visit our API documentation.</p>
+        <p>Please note that all access to this server will be logged and monitored to ensure security and data integrity.</p>
+        <p>If you have any questions or encounter any issues, please contact our support team. Thank you for using our service!</p>
+<!--        <a class="button" href="https://your-api-documentation-url">View API Documentation</a>-->
+    </div>
+
+    <div class="language" id="chinese" style="display: none;">
+        <p>这是我们的API服务器，用于提供数据和服务。请确保您具有有效的访问凭据，并按照API文档中的要求进行请求。</p>
+        <p>如果您需要获取有关可用端点和支持的功能的详细信息，请访问我们的API文档。</p>
+        <p>请注意，所有对此服务器的访问都将被记录和监视，以确保安全性和数据完整性。</p>
+        <p>如果您有任何疑问或遇到任何问题，请联系我们的支持团队。感谢您的使用！</p>
+<!--        <a class="button" href="https://your-api-documentation-url">查看API文档</a>-->
+    </div>
+
+    <div class="language-toggle">
+        <button class="toggle-button" id="english-button" onclick="toggleLanguage('english')">English</button>
+        <button class="toggle-button active" id="chinese-button" onclick="toggleLanguage('chinese')">中文</button>
+    </div>
+</div>
+
+<script>
+    toggleLanguage('english');
+  </script>
+</body>
+</html>
