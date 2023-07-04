@@ -1,4 +1,4 @@
-package com.server.apis.data.ums
+package com.server.apis.data.ums.entity
 
 data class User(
     val id: String,
