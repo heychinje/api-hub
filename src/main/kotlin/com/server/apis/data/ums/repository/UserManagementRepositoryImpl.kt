@@ -1,4 +1,4 @@
-package com.server.apis.data.ums.service
+package com.server.apis.data.ums.repository
 
 import com.server.apis.data.ums.entity.Profile
 import com.server.apis.data.ums.entity.User
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class UserManagementServiceImpl : UserManagementService {
+class UserManagementRepositoryImpl : UserManagementRepository {
     private val log = LoggerFactory.getLogger("UMS")
 
     @Autowired

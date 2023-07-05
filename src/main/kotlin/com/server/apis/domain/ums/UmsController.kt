@@ -1,6 +1,6 @@
 package com.server.apis.domain.ums
 
-import com.server.apis.data.ums.service.UserManagementService
+import com.server.apis.data.ums.repository.UserManagementRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -13,13 +13,13 @@ class UmsController {
     }
 
     @Autowired
-    lateinit var userManagementService: UserManagementService
+    lateinit var userManagementRepository: UserManagementRepository
 
     @GetMapping("$DOMAIN/register")
     fun register(
         @RequestParam(value = "userName", defaultValue = "Tom") userName: String,
         @RequestParam(value = "password", defaultValue = "123") password: String
     ): String {
-        return userManagementService.register(userName, password).toString()
+        return userManagementRepository.register(userName, password).toString()
     }
 }
