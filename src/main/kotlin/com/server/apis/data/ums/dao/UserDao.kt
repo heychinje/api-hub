@@ -3,35 +3,21 @@ package com.server.apis.data.ums.dao
 import com.server.apis.data.ums.entity.User
 
 interface UserDao {
-    fun insert(user: User): Result<Unit> {
-        throw Exception("Not allowed to call the interface method!!!")
-    }
+    fun insert(user: User): Result<Unit>
 
-    fun delete(user: User): Result<Unit> {
-        throw Exception("Not allowed to call the interface method!!!")
-    }
+    fun delete(user: User): Result<Unit>
 
-    fun deleteById(userId: String): Result<Unit> {
-        throw Exception("Not allowed to call the interface method!!!")
-    }
+    fun deleteById(userId: String): Result<Unit>
 
-    fun update(user: User): Result<User> {
-        throw Exception("Not allowed to call the interface method!!!")
-    }
+    fun queryAll(): Result<List<User>>
 
-    fun queryAll(): Result<List<User>> {
-        throw Exception("Not allowed to call the interface method!!!")
-    }
+    fun <V : Any?> queryBy(key: String, value: V): Result<User>
 
-    fun queryById(userId: String): Result<User> {
-        throw Exception("Not allowed to call the interface method!!!")
-    }
+    fun queryById(userId: String): Result<User>
 
-    fun queryByName(userName: String): Result<User> {
-        throw Exception("Not allowed to call the interface method!!!")
-    }
+    fun queryByName(userName: String): Result<User>
 
-    fun existByName(userName: String): Boolean {
-        throw Exception("Not allowed to call the interface method!!!")
-    }
+    fun <V : Any?> existBy(key: String, value: V): Boolean
+
+    fun existByName(userName: String): Boolean
 }

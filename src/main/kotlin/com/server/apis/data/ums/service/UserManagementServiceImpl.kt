@@ -96,6 +96,6 @@ class UserManagementServiceImpl : UserManagementService {
         password.sha256(userName.md5("$timestamp"))
 
     private fun String.isSecurity(): Boolean {
-        return this.length >= 8
+        return this.length >= 2
     }
 }

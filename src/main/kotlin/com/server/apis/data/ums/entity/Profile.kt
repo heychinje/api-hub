@@ -2,7 +2,7 @@ package com.server.apis.data.ums.entity
 
 import org.springframework.data.mongodb.core.mapping.Document
 
-@Document(collation = "users-profile")
+@Document(collection = "users-profile")
 data class Profile(
     val userId: String,
     val userName: String,
