@@ -1,10 +1,10 @@
 package com.server.apis.data.ums.service
 
+import com.server.apis.data.ums.dao.ProfileDao
+import com.server.apis.data.ums.dao.UserDao
 import com.server.apis.data.ums.entity.Profile
 import com.server.apis.data.ums.entity.User
 import com.server.apis.data.ums.exception.*
-import com.server.apis.data.ums.repository.ProfileRepository
-import com.server.apis.data.ums.repository.UserRepository
 import com.server.apis.extension.md5
 import com.server.apis.extension.sha256
 import org.slf4j.LoggerFactory
@@ -16,16 +16,16 @@ class UserManagementServiceImpl : UserManagementService {
     private val log = LoggerFactory.getLogger("UMS")
 
     @Autowired
-    private lateinit var userRepository: UserRepository
+    private lateinit var userDao: UserDao
 
     @Autowired
-    private lateinit var profileRepository: ProfileRepository
+    private lateinit var profileDao: ProfileDao
 
     override fun register(userName: String, password: String): Result<User> {
         log.info("<$userName>[$password]: register new user.")
         // check username
         if (userName.isEmpty() || userName.isBlank()) return Result.failure(InvalidUserNameException)
-        if (userRepository.findByUserName(userName) != null) return Result.failure(ExistedUserNameException)
+        if (userDao.existByName(userName)) return Result.failure(ExistedUserNameException)
 
         // check password
         if (password.isEmpty() || password.isBlank()) return Result.failure(InvalidPasswordException)
@@ -35,7 +35,7 @@ class UserManagementServiceImpl : UserManagementService {
         val newUser = generateUser(userName)
 
         // save new user
-        userRepository.insert(newUser)
+        userDao.insert(newUser)
 
         // create new profile
         val timestamp = System.currentTimeMillis()
@@ -47,7 +47,7 @@ class UserManagementServiceImpl : UserManagementService {
             registerTime = timestamp,
             lastLoggedInTime = timestamp,
         )
-        profileRepository.insert(newProfile)
+        profileDao.insert(newProfile)
 
         return Result.success(newUser)
     }
@@ -58,17 +58,17 @@ class UserManagementServiceImpl : UserManagementService {
         if (password.isEmpty() || password.isBlank()) return Result.failure(InvalidPasswordException)
 
         // check user exist
-        if (userRepository.findByUserName(userName) == null) return Result.failure(InvalidUserNameException)
+        if (profileDao.existByName(userName)) return Result.failure(InvalidUserNameException)
 
         // validate password
-        val user = userRepository.findByUserName(userName) ?: return Result.failure(NotFoundUserNameException)
+        val user = profileDao.queryByName(userName).getOrNull() ?: return Result.failure(NotFoundUserNameException)
 
-        return profileRepository.findByUserId(user.id)?.let {
+        return profileDao.queryById(user.userId).getOrNull()?.let {
             if (createCredential(it.userName, password, it.lastLoggedInTime) == it.credential) {
                 val timestamp = System.currentTimeMillis()
                 val newCredential = createCredential(it.userName, password, timestamp)
                 val newProfile = it.copy(credential = newCredential, lastLoggedInTime = timestamp)
-                profileRepository.save(newProfile)
+                profileDao.update(newProfile)
                 Result.success(newProfile)
             } else {
                 Result.failure(IncorrectPasswordException)
