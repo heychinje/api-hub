@@ -20,4 +20,12 @@ class UmsController {
     ): String {
         return ums.register(userName, password).toString()
     }
+
+    @GetMapping("/login")
+    fun login(
+        @RequestParam(value = "userName", defaultValue = "Tom") userName: String,
+        @RequestParam(value = "password", defaultValue = "123") password: String
+    ): String {
+        return ums.login(userName, password).toString()
+    }
 }

@@ -58,12 +58,12 @@ class UserManagementServiceImpl : UserManagementService {
         if (password.isEmpty() || password.isBlank()) return Result.failure(InvalidPasswordException)
 
         // check user exist
-        if (profileDao.existByName(userName)) return Result.failure(InvalidUserNameException)
+        if (profileDao.existByName(userName).not()) return Result.failure(NotFoundUserNameException)
 
         // validate password
-        val user = profileDao.queryByName(userName).getOrNull() ?: return Result.failure(NotFoundUserNameException)
+        val profile = profileDao.queryByName(userName).getOrNull() ?: return Result.failure(NotFoundUserProfileException)
 
-        return profileDao.queryById(user.userId).getOrNull()?.let {
+        return profileDao.queryById(profile.userId).getOrNull()?.let {
             if (createCredential(it.userName, password, it.lastLoggedInTime) == it.credential) {
                 val timestamp = System.currentTimeMillis()
                 val newCredential = createCredential(it.userName, password, timestamp)

@@ -9,13 +9,17 @@ interface ProfileDao {
 
     fun deleteById(profile: String): Result<Unit>
 
-    fun update(profile: Profile): Result<Profile>
+    fun update(profile: Profile): Result<Unit>
 
     fun queryAll(): Result<List<Profile>>
+
+    fun <V : Any?> queryBy(key: String, value: V): Result<Profile>
 
     fun queryById(userId: String): Result<Profile>
 
     fun queryByName(userName: String): Result<Profile>
+
+    fun <V : Any?> existBy(key: String, value: V): Boolean
 
     fun existByName(userName: String): Boolean
 }
