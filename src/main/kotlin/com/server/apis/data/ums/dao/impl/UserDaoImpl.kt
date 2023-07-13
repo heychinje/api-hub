@@ -19,7 +19,7 @@ class UserDaoImpl : UserDao {
     override fun delete(user: User): Result<Unit> = runCatching { mt.remove(user) }
 
     override fun deleteById(userId: String): Result<Unit> = runCatching {
-        Criteria.where("id").let {
+        Criteria.where("userId").let {
             Query().apply { addCriteria(it) }
         }.let {
             mt.remove(it, User::class.java)

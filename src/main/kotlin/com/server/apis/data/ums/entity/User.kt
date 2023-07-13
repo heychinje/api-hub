@@ -2,8 +2,8 @@ package com.server.apis.data.ums.entity
 
 import org.springframework.data.mongodb.core.mapping.Document
 
-@Document(collection = "users")
+@Document(collection = UserCollectionNames.USERS)
 data class User(
-    val id: String,
+    val userId: String,
     val userName: String,
 )

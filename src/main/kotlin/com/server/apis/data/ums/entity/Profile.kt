@@ -2,14 +2,10 @@ package com.server.apis.data.ums.entity
 
 import org.springframework.data.mongodb.core.mapping.Document
 
-@Document(collection = "users-profile")
+@Document(collection = UserCollectionNames.PROFILE)
 data class Profile(
     val userId: String,
-    val userName: String,
-    val credential: String,
     val nickName: String? = null,
     val email: String? = null,
     val phoneNumber: String? = null,
-    val registerTime: Long,
-    val lastModifiedTime: Long,
 )
