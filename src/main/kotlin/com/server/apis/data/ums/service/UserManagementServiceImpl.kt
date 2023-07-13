@@ -55,25 +55,82 @@ class UserManagementServiceImpl : UserManagementService {
     override fun login(userName: String, password: String): Result<Profile> {
         // check username and password format
         if (userName.isEmpty() || userName.isBlank()) return Result.failure(InvalidUserNameException)
-        if (password.isEmpty() || password.isBlank()) return Result.failure(InvalidPasswordException)
 
-        // check user exist
-        if (profileDao.existByName(userName).not()) return Result.failure(NotFoundUserNameException)
+        // check username exist
+        if (userDao.existByName(userName).not()) return Result.failure(ExistedUserNameException)
 
-        // validate password
+        // check and get profile
         val profile = profileDao.queryByName(userName).getOrNull() ?: return Result.failure(NotFoundUserProfileException)
 
-        return profileDao.queryById(profile.userId).getOrNull()?.let {
-            if (createCredential(it.userName, password, it.lastLoggedInTime) == it.credential) {
+        return profile.let {
+            // verify password
+            val isPasswordVerified = createCredential(it.userName, password, it.lastModifiedTime) == it.credential
+
+            // update last logged in time
+            if (isPasswordVerified) {
                 val timestamp = System.currentTimeMillis()
                 val newCredential = createCredential(it.userName, password, timestamp)
-                val newProfile = it.copy(credential = newCredential, lastLoggedInTime = timestamp)
+                val newProfile = it.copy(credential = newCredential, lastModifiedTime = timestamp)
                 profileDao.update(newProfile)
                 Result.success(newProfile)
             } else {
                 Result.failure(IncorrectPasswordException)
             }
-        } ?: Result.failure(NotFoundUserProfileException)
+        }
+    }
+
+    override fun resetPassword(userName: String, password: String): Result<Profile> {
+        // check username
+        if (userName.isEmpty() || userName.isBlank()) return Result.failure(InvalidUserNameException)
+        if (userDao.existByName(userName).not()) return Result.failure(NotFoundUserNameException)
+
+        // check password
+        if (password.isEmpty() || password.isBlank()) return Result.failure(InvalidPasswordException)
+        if (password.isSecurity().not()) return Result.failure(InsecurityPasswordException)
+
+        // check and get profile
+        val profile = profileDao.queryByName(userName).getOrNull() ?: return Result.failure(NotFoundUserProfileException)
+
+        return profile.let {
+            // verify password
+            val isPasswordVerified = createCredential(it.userName, password, it.lastModifiedTime) == it.credential
+
+            // update last logged in time
+            val timestamp = System.currentTimeMillis()
+            val newCredential = createCredential(it.userName, password, timestamp)
+            val newProfile = it.copy(credential = newCredential, lastModifiedTime = timestamp)
+            profileDao.update(newProfile)
+            Result.success(newProfile)
+        }
+    }
+
+    override fun changePassword(userName: String, oldPassword: String, newPassword: String): Result<Profile> {
+        // check username
+        if (userName.isEmpty() || userName.isBlank()) return Result.failure(InvalidUserNameException)
+        if (userDao.existByName(userName).not()) return Result.failure(NotFoundUserNameException)
+
+        // check password
+        if (newPassword.isEmpty() || newPassword.isBlank()) return Result.failure(InvalidPasswordException)
+        if (newPassword.isSecurity().not()) return Result.failure(InsecurityPasswordException)
+
+        // check and get profile
+        val profile = profileDao.queryByName(userName).getOrNull() ?: return Result.failure(NotFoundUserProfileException)
+
+        return profile.let {
+            // verify password
+            val isPasswordVerified = createCredential(it.userName, oldPassword, it.lastModifiedTime) == it.credential
+
+            // update last logged in time
+            if (isPasswordVerified) {
+                val timestamp = System.currentTimeMillis()
+                val newCredential = createCredential(it.userName, newPassword, timestamp)
+                val newProfile = it.copy(credential = newCredential, lastModifiedTime = timestamp)
+                profileDao.update(newProfile)
+                Result.success(newProfile)
+            } else {
+                Result.failure(IncorrectPasswordException)
+            }
+        }
     }
 
     private fun generateUser(userName: String): User {

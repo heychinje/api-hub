@@ -11,5 +11,5 @@ data class Profile(
     val email: String? = null,
     val phoneNumber: String? = null,
     val registerTime: Long,
-    val lastLoggedInTime: Long,
+    val lastModifiedTime: Long,
 )

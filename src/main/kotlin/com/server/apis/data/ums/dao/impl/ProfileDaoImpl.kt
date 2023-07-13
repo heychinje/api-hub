@@ -38,7 +38,7 @@ class ProfileDaoImpl : ProfileDao {
                 set("email", profile.email)
                 set("phoneNumber", profile.phoneNumber)
                 set("registerTime", profile.registerTime)
-                set("lastLoggedInTime", profile.lastLoggedInTime)
+                set("lastLoggedInTime", profile.lastModifiedTime)
             }
             mt.upsert(it, update, Profile::class.java)
         }
