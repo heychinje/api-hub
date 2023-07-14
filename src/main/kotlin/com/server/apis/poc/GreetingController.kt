@@ -1,4 +1,4 @@
-package com.server.apis.domain.poc
+package com.server.apis.poc
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam

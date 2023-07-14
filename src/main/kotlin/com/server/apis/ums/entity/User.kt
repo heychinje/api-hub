@@ -1,4 +1,4 @@
-package com.server.apis.data.ums.entity
+package com.server.apis.ums.entity
 
 import org.springframework.data.mongodb.core.mapping.Document
 
@@ -6,4 +6,5 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class User(
     val userId: String,
     val userName: String,
+    val createTime: Long
 )

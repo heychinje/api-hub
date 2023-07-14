@@ -1,6 +1,6 @@
-package com.server.apis.data.ums.dao
+package com.server.apis.ums.dao
 
-import com.server.apis.data.ums.entity.User
+import com.server.apis.ums.entity.User
 
 interface UserDao {
     fun insert(user: User): Result<Unit>

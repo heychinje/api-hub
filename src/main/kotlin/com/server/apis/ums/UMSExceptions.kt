@@ -1,4 +1,4 @@
-package com.server.apis.data.ums.exception
+package com.server.apis.ums
 
 
 sealed class UMSException(msg: String, t: Throwable?) :
@@ -21,4 +21,6 @@ object InvalidPasswordException : UMSException("The password is invalid", null)
 object InsecurityPasswordException : UMSException("The password does not match security rules", null)
 
 object IncorrectPasswordException : UMSException("The password is incorrect", null)
+
+object UnknownException : UMSException("Unknown exception occurred", null)
 

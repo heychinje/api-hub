@@ -1,8 +1,8 @@
-package com.server.apis.data.ums.dao.impl
+package com.server.apis.ums.impl
 
-import com.server.apis.data.ums.dao.CredentialDao
-import com.server.apis.data.ums.entity.Credential
-import com.server.apis.data.ums.exception.NotFoundUserCredentialException
+import com.server.apis.ums.dao.CredentialDao
+import com.server.apis.ums.entity.Credential
+import com.server.apis.ums.NotFoundUserCredentialException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
@@ -32,8 +32,8 @@ class CredentialDaoImpl : CredentialDao {
             Query().apply { addCriteria(it) }
         }.let {
             val update = Update().apply {
-                set("token", credential.token)
-                set("lastModifiedTime", credential.lastModifiedTime)
+                set("evidence", credential.evidence)
+                set("updateTime", credential.updateTime)
             }
             mt.upsert(it, update, Credential::class.java)
         }

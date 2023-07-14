@@ -1,4 +1,4 @@
-package com.server.apis.domain.poc
+package com.server.apis.poc
 
 data class Greeting(
     val id: Long, val content: String

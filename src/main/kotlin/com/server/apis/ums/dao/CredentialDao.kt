@@ -1,6 +1,6 @@
-package com.server.apis.data.ums.dao
+package com.server.apis.ums.dao
 
-import com.server.apis.data.ums.entity.Credential
+import com.server.apis.ums.entity.Credential
 
 interface CredentialDao {
     fun insert(credential: Credential): Result<Unit>

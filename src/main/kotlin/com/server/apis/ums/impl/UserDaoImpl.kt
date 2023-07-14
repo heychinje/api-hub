@@ -1,8 +1,8 @@
-package com.server.apis.data.ums.dao.impl
+package com.server.apis.ums.impl
 
-import com.server.apis.data.ums.dao.UserDao
-import com.server.apis.data.ums.entity.User
-import com.server.apis.data.ums.exception.NotFoundUserException
+import com.server.apis.ums.dao.UserDao
+import com.server.apis.ums.entity.User
+import com.server.apis.ums.NotFoundUserException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria

@@ -1,6 +1,5 @@
-package com.server.apis.domain.ums
+package com.server.apis.ums
 
-import com.server.apis.data.ums.service.UserManagementService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -18,6 +17,7 @@ class UmsController {
         @RequestParam(value = "userName", defaultValue = "Tom") userName: String,
         @RequestParam(value = "password", defaultValue = "123") password: String
     ): String {
+        println(ums)
         return ums.register(userName, password).toString()
     }
 
@@ -26,6 +26,7 @@ class UmsController {
         @RequestParam(value = "userName", defaultValue = "Tom") userName: String,
         @RequestParam(value = "password", defaultValue = "123") password: String
     ): String {
+        println(ums)
         return ums.login(userName, password).toString()
     }
 }
