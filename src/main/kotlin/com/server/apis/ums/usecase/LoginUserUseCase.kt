@@ -2,6 +2,7 @@ package com.server.apis.ums.usecase
 
 import com.server.apis.ums.*
 import com.server.apis.ums.entity.Credential
+import com.server.apis.ums.entity.User
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.config.ConfigurableBeanFactory
@@ -21,7 +22,7 @@ class LoginUserUseCase(
     private val createUserEvidenceUseCase: CreateUserEvidenceUseCase,
     private val updateCredentialUseCase: UpdateCredentialUseCase,
 ) {
-    operator fun invoke(userName: String, password: String): Result<Credential> {
+    operator fun invoke(userName: String, password: String): Result<User> {
         val timestamp = System.currentTimeMillis()
 
         // check username format
@@ -57,7 +58,7 @@ class LoginUserUseCase(
                 val newCredential = it.copy(evidence = newEvidence, updateTime = timestamp)
 
                 updateCredentialUseCase(newCredential).let { result ->
-                    if (result.isSuccess) Result.success(newCredential)
+                    if (result.isSuccess) Result.success(user)
                     else Result.failure(result.exceptionOrNull() ?: UnknownException)
                 }
             } else {

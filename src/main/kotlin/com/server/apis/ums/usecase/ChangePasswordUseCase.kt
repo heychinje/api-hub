@@ -2,6 +2,7 @@ package com.server.apis.ums.usecase
 
 import com.server.apis.ums.*
 import com.server.apis.ums.entity.Credential
+import com.server.apis.ums.entity.User
 import org.springframework.beans.factory.config.ConfigurableBeanFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
@@ -19,7 +20,7 @@ class ChangePasswordUseCase(
     private val createUserEvidenceUseCase: CreateUserEvidenceUseCase,
     private val updateCredentialUseCase: UpdateCredentialUseCase,
 ) {
-    operator fun invoke(userName: String, oldPassword: String, newPassword: String): Result<Credential> {
+    operator fun invoke(userName: String, oldPassword: String, newPassword: String): Result<User> {
         val timestamp = System.currentTimeMillis()
 
         // check username format
@@ -53,8 +54,8 @@ class ChangePasswordUseCase(
             if (isPasswordVerified) {
                 val newEvidence = createUserEvidenceUseCase(userName, newPassword, timestamp)
                 val newCredential = it.copy(evidence = newEvidence, updateTime = timestamp)
-                updateCredentialUseCase(credential)
-                Result.success(newCredential)
+                updateCredentialUseCase(newCredential)
+                Result.success(user)
             } else {
                 Result.failure(IncorrectPasswordException)
             }

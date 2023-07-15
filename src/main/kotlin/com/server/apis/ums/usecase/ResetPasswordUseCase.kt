@@ -2,6 +2,7 @@ package com.server.apis.ums.usecase
 
 import com.server.apis.ums.*
 import com.server.apis.ums.entity.Credential
+import com.server.apis.ums.entity.User
 import org.springframework.beans.factory.config.ConfigurableBeanFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
@@ -18,7 +19,7 @@ class ResetPasswordUseCase(
     private val createUserEvidenceUseCase: CreateUserEvidenceUseCase,
     private val updateCredentialUseCase: UpdateCredentialUseCase,
 ) {
-    operator fun invoke(userName: String, password: String): Result<Credential> {
+    operator fun invoke(userName: String, password: String): Result<User> {
         val timestamp = System.currentTimeMillis()
 
         // check username format
@@ -46,8 +47,8 @@ class ResetPasswordUseCase(
         return credential.let {
             val newEvidence = createUserEvidenceUseCase(userName, password, timestamp)
             val newCredential = it.copy(evidence = newEvidence, updateTime = timestamp)
-            updateCredentialUseCase(credential)
-            Result.success(newCredential)
+            updateCredentialUseCase(newCredential)
+            Result.success(user)
         }
     }
 }

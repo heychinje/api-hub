@@ -1,14 +1,16 @@
 package com.server.apis.ums
 
-import com.server.apis.ums.entity.Credential
-import com.server.apis.ums.entity.User
+import com.server.apis.ums.dto.ChangePasswordDTO
+import com.server.apis.ums.dto.LoginDTO
+import com.server.apis.ums.dto.RegisterDTO
+import com.server.apis.ums.dto.ResetPasswordDTO
 
 interface UserManagementService {
-    fun register(userName: String, password: String): Result<User>
+    fun register(userName: String, password: String): RegisterDTO
 
-    fun login(userName: String, password: String): Result<Credential>
+    fun login(userName: String, password: String): LoginDTO
 
-    fun resetPassword(userName: String, password: String): Result<Credential>
+    fun resetPassword(userName: String, password: String): ResetPasswordDTO
 
-    fun changePassword(userName: String, oldPassword: String, newPassword: String): Result<Credential>
+    fun changePassword(userName: String, oldPassword: String, newPassword: String): ChangePasswordDTO
 }
