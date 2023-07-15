@@ -8,16 +8,14 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/ums")
-class UmsController {
-    @Autowired
-    private lateinit var ums: UserManagementService
-
+class UmsController(
+    private val ums: UserManagementService
+) {
     @GetMapping("/register")
     fun register(
         @RequestParam(value = "userName", defaultValue = "Tom") userName: String,
         @RequestParam(value = "password", defaultValue = "123") password: String
     ): String {
-        println(ums)
         return ums.register(userName, password).toString()
     }
 
@@ -26,7 +24,6 @@ class UmsController {
         @RequestParam(value = "userName", defaultValue = "Tom") userName: String,
         @RequestParam(value = "password", defaultValue = "123") password: String
     ): String {
-        println(ums)
         return ums.login(userName, password).toString()
     }
 }

@@ -2,6 +2,8 @@ package com.server.apis.ums.usecase
 
 import com.server.apis.ums.*
 import com.server.apis.ums.entity.Credential
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.config.ConfigurableBeanFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Component
 class LoginUserUseCase(
+    private val log: Logger = LoggerFactory.getLogger("[UMS]: login: "),
     private val verifyUserNameFormatUseCase: VerifyUserNameFormatUseCase,
     private val verifyUserNameExistUseCase: VerifyUserNameExistUseCase,
     private val verifyCredentialUseCase: VerifyCredentialUseCase,
@@ -53,8 +56,10 @@ class LoginUserUseCase(
                 val newEvidence = createUserEvidenceUseCase(userName, password, timestamp)
                 val newCredential = it.copy(evidence = newEvidence, updateTime = timestamp)
 
-                updateCredentialUseCase(credential)
-                Result.success(newCredential)
+                updateCredentialUseCase(newCredential).let { result ->
+                    if (result.isSuccess) Result.success(newCredential)
+                    else Result.failure(result.exceptionOrNull() ?: UnknownException)
+                }
             } else {
                 Result.failure(IncorrectPasswordException)
             }

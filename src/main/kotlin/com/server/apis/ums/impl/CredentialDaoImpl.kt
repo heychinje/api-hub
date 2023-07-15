@@ -28,15 +28,7 @@ class CredentialDaoImpl : CredentialDao {
     }
 
     override fun update(credential: Credential): Result<Unit> = runCatching {
-        Criteria.where("userId").`is`(credential.userId).let {
-            Query().apply { addCriteria(it) }
-        }.let {
-            val update = Update().apply {
-                set("evidence", credential.evidence)
-                set("updateTime", credential.updateTime)
-            }
-            mt.upsert(it, update, Credential::class.java)
-        }
+        mt.save(credential)
     }
 
     override fun queryAll(): Result<List<Credential>> = runCatching { mt.findAll(Credential::class.java) }
