@@ -9,6 +9,7 @@ import com.server.apis.authentication.AuthErrorCodes.CODE_INVALID_USERNAME
 import com.server.apis.authentication.AuthErrorCodes.CODE_NOT_FOUND_USER
 import com.server.apis.authentication.AuthErrorCodes.CODE_NOT_FOUND_USERNAME
 import com.server.apis.authentication.AuthErrorCodes.CODE_NOT_FOUND_USER_CREDENTIAL
+import com.server.apis.authentication.AuthErrorCodes.CODE_NULL_OR_BLANK_TOKEN
 import com.server.apis.authentication.AuthErrorCodes.CODE_UNKNOWN
 
 
@@ -34,6 +35,8 @@ object InsecurityPasswordException :
     UMSException("The password does not match security rules", CODE_INSECURITY_PASSWORD)
 
 object IncorrectPasswordException : UMSException("The password is incorrect", CODE_INCORRECT_PASSWORD)
+
+object NullOrBlankTokenException: UMSException("The token passed is null or empty", CODE_NULL_OR_BLANK_TOKEN)
 
 object UnknownException : UMSException("Unknown exception occurred", CODE_UNKNOWN)
 

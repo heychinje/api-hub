@@ -13,7 +13,8 @@ object AuthErrorCodes {
     const val CODE_MISMATCHED_ALGORITHM = CODE_AUTH + 1
     const val CODE_MISMATCHED_SIGNATURE = CODE_AUTH + 2
     const val CODE_EXPIRED_TOKEN = CODE_AUTH + 3
-    const val CODE_INVALID_CLAIM = CODE_AUTH + 4
+    const val CODE_NULL_OR_BLANK_TOKEN = CODE_AUTH + 4
+    const val CODE_INVALID_CLAIM = CODE_AUTH + 5
 
 
     // user domain error code
