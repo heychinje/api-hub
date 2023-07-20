@@ -19,7 +19,14 @@ class WebConfiguration(
     private fun InterceptorRegistry.addTokenInterceptors(tokenInterceptor: TokenInterceptor) = run {
         addInterceptor(tokenInterceptor).apply {
             addPathPatterns("/**")
-            excludePathPatterns("/ums/register","/ums/login")
+            arrayOf(
+                "/",
+                "/ums/register",
+                "/ums/login",
+                "/**"
+            ).let {
+                excludePathPatterns(*it)
+            }
         }
     }
 }
