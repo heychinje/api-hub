@@ -10,7 +10,6 @@ import kotlinx.coroutines.runBlocking
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import kotlin.io.use
 
 @RestController
 @RequestMapping(DOMAIN_OPEN_AI)
