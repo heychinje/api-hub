@@ -22,5 +22,3 @@ val String.sha256: String get() = SHA256.digest(toByteArray()).hex
 fun String.sha256(salt: String) = "{'salt':$salt,'value':$this}".sha256
 
 
-
-

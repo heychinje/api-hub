@@ -19,4 +19,8 @@ object Constants {
     // open-ai domain
     const val DOMAIN_OPEN_AI = "$DOMAIN_APIS/openai"
     const val DOMAIN_MODELS = "/models"
+
+    // encode/decode domain
+    const val DOMAIN_ENC_DEC = "$DOMAIN_APIS/enc-dec"
+    const val DOMAIN_AES = "/aes"
 }

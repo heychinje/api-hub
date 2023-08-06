@@ -23,7 +23,8 @@ class WebConfiguration(
                 "/",
                 "/ums/register",
                 "/ums/login",
-                "/**"
+                "/**",
+                "/apis/**"
             ).let {
                 excludePathPatterns(*it)
             }
