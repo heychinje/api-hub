@@ -7,6 +7,6 @@ data class RegisterDTO(
     val data: Data?
 ) {
     data class Data(
-        val user: User
+        val user: UserDTO
     )
 }

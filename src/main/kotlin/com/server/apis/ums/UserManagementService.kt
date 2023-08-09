@@ -1,9 +1,6 @@
 package com.server.apis.ums
 
-import com.server.apis.ums.dto.ChangePasswordDTO
-import com.server.apis.ums.dto.LoginDTO
-import com.server.apis.ums.dto.RegisterDTO
-import com.server.apis.ums.dto.ResetPasswordDTO
+import com.server.apis.ums.dto.*
 
 interface UserManagementService {
     fun register(userName: String, password: String): RegisterDTO
@@ -13,4 +10,13 @@ interface UserManagementService {
     fun resetPassword(userName: String, password: String): ResetPasswordDTO
 
     fun changePassword(userName: String, oldPassword: String, newPassword: String): ChangePasswordDTO
+
+    fun subscribeService(
+        userId: String,
+        serviceName: String,
+        serviceDescription: String? = null,
+        serviceAccessCredential: String,
+    ): AvailableServiceDTO
+
+    fun fetchAvailableServices(userId: String): AvailableServiceDTO
 }

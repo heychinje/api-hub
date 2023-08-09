@@ -7,7 +7,7 @@ data class LoginDTO(
     val data: Data?
 ) {
     data class Data(
-        val user: User,
+        val user: UserDTO,
         val token: String,
     )
 }

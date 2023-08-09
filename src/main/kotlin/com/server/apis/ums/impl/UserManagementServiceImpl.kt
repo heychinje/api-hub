@@ -4,10 +4,7 @@ import com.server.apis.authentication.AuthErrorCodes.CODE_OK
 import com.server.apis.authentication.entity.Status
 import com.server.apis.authentication.usecase.CreateTokenUseCase
 import com.server.apis.ums.*
-import com.server.apis.ums.dto.ChangePasswordDTO
-import com.server.apis.ums.dto.LoginDTO
-import com.server.apis.ums.dto.RegisterDTO
-import com.server.apis.ums.dto.ResetPasswordDTO
+import com.server.apis.ums.dto.*
 import com.server.apis.ums.usecase.ChangePasswordUseCase
 import com.server.apis.ums.usecase.LoginUserUseCase
 import com.server.apis.ums.usecase.RegisterUseCase
@@ -111,4 +108,17 @@ class UserManagementServiceImpl(
                 }
             )
         }
+
+    override fun subscribeService(
+        userId: String,
+        serviceName: String,
+        serviceDescription: String?,
+        serviceAccessCredential: String
+    ): AvailableServiceDTO {
+        TODO("Not yet implemented")
+    }
+
+    override fun fetchAvailableServices(userId: String): AvailableServiceDTO {
+        TODO("Not yet implemented")
+    }
 }
